@@ -1,13 +1,13 @@
 # See this project in action 
 
-[https://jocular-manatee-f11db6.netlify.app/](https://jocular-manatee-f11db6.netlify.app/)
+[https://ranpic.netlify.app/](https://ranpic.netlify.app/)
 
 # What it is
 
 It's a random avatar (or abstract image) generator. Select a hue and generate a random avatar 
 for your profile picture, which may (or may not) look similar to this:
 
-![ranpic image](/src/assets/ranpic.png)
+![ranpic image](/public/ranpic.png)
 
 # How it works
 

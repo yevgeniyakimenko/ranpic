@@ -1,7 +1,9 @@
-const offscrCanvas = new OffscreenCanvas(500, 500)
+const canvasSize = 512
+const halfSize = canvasSize / 2
+const offscrCanvas = new OffscreenCanvas(canvasSize, canvasSize)
 const ctx = offscrCanvas.getContext('2d')
-ctx.fillStyle = "#fff"
-ctx.fillRect(0, 0, offscrCanvas.width, offscrCanvas.height)
+// ctx.fillStyle = "#fff"
+// ctx.fillRect(0, 0, offscrCanvas.width, offscrCanvas.height)
 const brightnessRange = { min: 0, max: 100 }
 
 function randomFromRange(min, max) {
@@ -76,7 +78,7 @@ function drawEllipse(hue) {
 function drawCanvas(data) {
   const { hue } = data
 
-  const numOfShapes = randomFromRange(20, 30)
+  const numOfShapes = randomFromRange(15, 25)
   for (let i = 0; i < numOfShapes; i++) {
     if (Math.random() >= 0.5) {
       drawTriangle(hue)
@@ -89,35 +91,35 @@ function drawCanvas(data) {
 function cropCanvas() {
   // copy the center region of the canvas (250x250)
   const croppedCanvasBitmap = offscrCanvas.transferToImageBitmap()
-  const croppedCanvas = new OffscreenCanvas(250, 250)
+  const croppedCanvas = new OffscreenCanvas(halfSize, halfSize)
   const croppedCtx = croppedCanvas.getContext('2d')
-  croppedCtx.drawImage(croppedCanvasBitmap, 0, 0, 250, 250, 0, 0, 250, 250)
+  croppedCtx.drawImage(croppedCanvasBitmap, 0, 0, halfSize, halfSize, 0, 0, halfSize, halfSize)
 
   // flip the cropped canvas horizontally
-  const flippedCanvasX = new OffscreenCanvas(250, 250)
+  const flippedCanvasX = new OffscreenCanvas(halfSize, halfSize)
   const flippedCtxX = flippedCanvasX.getContext('2d')
   flippedCtxX.scale(-1, 1)
-  flippedCtxX.drawImage(croppedCanvas, -250, 0)
+  flippedCtxX.drawImage(croppedCanvas, -halfSize, 0)
 
   // flip the cropped canvas vertically
-  const flippedCanvasY = new OffscreenCanvas(250, 250)
+  const flippedCanvasY = new OffscreenCanvas(halfSize, halfSize)
   const flippedCtxY = flippedCanvasY.getContext('2d')
   flippedCtxY.scale(1, -1)
-  flippedCtxY.drawImage(croppedCanvas, 0, -250)
+  flippedCtxY.drawImage(croppedCanvas, 0, -halfSize)
 
   // rotate the cropped canvas by 180 degrees
-  const rotatedCanvas = new OffscreenCanvas(250, 250)
+  const rotatedCanvas = new OffscreenCanvas(halfSize, halfSize)
   const rotatedCtx = rotatedCanvas.getContext('2d')
   rotatedCtx.rotate(Math.PI)
-  rotatedCtx.drawImage(croppedCanvas, -250, -250)
+  rotatedCtx.drawImage(croppedCanvas, -halfSize, -halfSize)
 
   // put the four canvases together
-  const finalCanvas = new OffscreenCanvas(500, 500)
+  const finalCanvas = new OffscreenCanvas(canvasSize, canvasSize)
   const finalCtx = finalCanvas.getContext('2d')
   finalCtx.drawImage(croppedCanvas, 0, 0)
-  finalCtx.drawImage(flippedCanvasX, 250, 0)
-  finalCtx.drawImage(flippedCanvasY, 0, 250)
-  finalCtx.drawImage(rotatedCanvas, 250, 250)
+  finalCtx.drawImage(flippedCanvasX, halfSize, 0)
+  finalCtx.drawImage(flippedCanvasY, 0, halfSize)
+  finalCtx.drawImage(rotatedCanvas, halfSize, halfSize)
 
   return finalCanvas
 }
