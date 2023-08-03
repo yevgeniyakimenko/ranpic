@@ -18,6 +18,11 @@
   -webkit-text-size-adjust: 100%;
 }
 
+.image-container {
+  background-image: url("/checkerboard.png");
+  filter: brightness(0.8);
+}
+
 a {
   font-weight: 500;
   color: #ffffff;
@@ -49,10 +54,16 @@ button {
     color: #213547;
     background-color: #cccccc;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
+  }
+
+  .image-container {
+    filter: brightness(1);
   }
 }

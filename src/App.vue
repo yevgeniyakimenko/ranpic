@@ -73,13 +73,16 @@ randomImage()
         RanPic: Random Avatar Generator
       </h1>
 
-      <div class="image-container mb-8">
-        <a v-if="imgUrlData" :href="imgUrlData" :download="`ranpic-${randomString()}.png`">
-          <img :src="imgUrlData" alt="Generated avatar">
-        </a>
+      <div class="mb-8">
+        <div class="image-container mb-2">
+          <a v-if="imgUrlData" :href="imgUrlData" :download="`ranpic-${randomString()}.png`">
+            <img :src="imgUrlData" alt="Generated avatar">
+          </a>
+
+        </div>
         <p class="mt-2">
-          Click or tap the image to save it.
-        </p>
+            Click or tap the image to save it.
+          </p>
       </div>
 
       <form class="w-full">
